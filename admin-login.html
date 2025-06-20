@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - Degree Finder</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            min-height: 100vh;
+            background-image: url('20891047 copy.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .admin-login-container {
+            max-width: 400px;
+            width: 100%;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .admin-title {
+            color: #4B2666;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-control {
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+        }
+
+        .btn-admin-login {
+            width: 100%;
+            padding: 12px;
+            background: #4B2666;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-admin-login:hover {
+            background: #6b6bff;
+            transform: translateY(-2px);
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #4B2666;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            color: #6b6bff;
+        }
+
+        .error-message {
+            color: #dc3545;
+            text-align: center;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-login-container">
+        <h2 class="admin-title">Admin Login</h2>
+        <form id="adminLoginForm" onsubmit="return handleAdminLogin(event)">
+            <div class="mb-3">
+                <input type="text" class="form-control" id="adminUsername" placeholder="Admin Username" required>
+            </div>
+            <div class="mb-3">
+                <input type="password" class="form-control" id="adminPassword" placeholder="Password" required>
+            </div>
+            <button type="submit" class="btn-admin-login">Login</button>
+            <div id="errorMessage" class="error-message">Invalid admin credentials!</div>
+        </form>
+        <a href="welcome.html" class="back-link">Back to Welcome Page</a>
+    </div>
+
+    <script>
+        // Check if already logged in
+        if (sessionStorage.getItem('adminLoggedIn')) {
+            window.location.href = 'admin-dashboard.html';
+        }
+
+        function handleAdminLogin(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('adminUsername').value;
+            const password = document.getElementById('adminPassword').value;
+            const errorMessage = document.getElementById('errorMessage');
+
+            // For demo purposes, using a simple hardcoded admin credential
+            // In a real application, this should be handled securely on the server side
+            if (username === 'edupathadmin' && password === 'edupathadmin@2025') {
+                // Set admin session
+                sessionStorage.setItem('adminLoggedIn', 'true');
+                // Redirect to dashboard
+                window.location.href = 'admin-dashboard.html';
+            } else {
+                errorMessage.style.display = 'block';
+                // Clear password field
+                document.getElementById('adminPassword').value = '';
+            }
+
+            return false;
+        }
+    </script>
+</body>
+</html> 

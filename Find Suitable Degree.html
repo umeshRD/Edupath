@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="icon.jpg">
+    <title>Find Suitable Degree</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+            background-image: url('20891047 copy.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            margin-top: 50px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #343a40;
+        }
+        label {
+            color: #495057;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+        }
+
+        /* Styles copied from index.html for consistent header/navbar */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+            transition: all 0.3s ease-in-out; /* Smooth transitions for all elements */
+        }
+
+        body {
+            line-height: 1.6;
+            /* Background gradient is already defined above */
+            color: #333; /* Default text color */
+        }
+
+        /* Header */
+        header {
+            background-color: #4B2666;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: white;
+            flex-wrap: wrap; /* Allow wrapping for smaller screens */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow */
+        }
+
+        header img {
+            height: 50px;
+            margin-right: 20px;
+        }
+
+        header .header-links {
+            display: flex;
+            gap: 15px;
+            font-size: 1em; /* Use relative units */
+            flex-wrap: wrap; /* Allow links to wrap */
+        }
+
+        header .header-links a {
+            color: white;
+            text-decoration: none;
+            position: relative;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        header .header-links a:hover {
+            background-color: #FF7F00;
+        }
+        .navbar-brand {
+            font-weight: bold;
+            color: white !important;
+            font-size: 1.5em; /* Use relative units */
+        }
+
+         .navbar-brand h1 {
+             color: white; /* Ensure the text is white */
+             margin: 0; /* Remove any default margin that might affect alignment */
+             padding: 0; /* Remove any default padding */
+         }
+
+        .navbar-dark .navbar-toggler {
+            border-color: white;
+        }
+
+        .dropdown-menu {
+            background-color: #ffffff; /* White background */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Improved shadow */
+            border: none; /* Remove default border */
+        }
+
+        .dropdown-item {
+            color: #333; /* Darker text for better contrast, matching home page default */
+        }
+
+        .dropdown-item:hover {
+            background-color: #FF7F00;
+            color: white;
+        }
+
+
+        /* Dropdown menu */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #ffffff; /* White background */
+            color: #333; /* Darker text, matching home page default */
+            min-width: 200px;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 10px 15px;
+            text-decoration: none;
+            color: #333; /* Darker text, matching home page default */
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #FF7F00;
+            color: white;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #logoutBtn {
+            background-color: #dc3545; /* Red background */
+            color: white;
+            border: none;
+            padding: 10px 20px; /* Slightly more padding */
+            border-radius: 25px; /* Pill shape */
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transition and subtle lift */
+            font-weight: bold; /* Bold text */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow */
+        }
+
+        #logoutBtn:hover {
+            background-color: #c82333; /* Darker red on hover */
+            transform: translateY(-2px); /* Slight lift effect */
+        }
+         /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column; /* Stack items vertically */
+                align-items: flex-start;
+            }
+
+            header .header-links {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+
+             section {
+                padding: 40px 15px; /* Adjust section padding */
+            }
+
+            section h2 {
+                font-size: 1.8em; /* Adjust heading size */
+                margin-bottom: 30px;
+            }
+
+            /* Adjust navbar alignment for smaller screens if needed */
+            .navbar-collapse .navbar-nav.ms-auto {
+                margin-left: 0 !important; /* Remove auto margin on smaller screens */
+                align-items: flex-start; /* Align items to the start */
+            }
+        }
+
+        @media (max-width: 480px) {
+            header img {
+                height: 40px; /* Smaller logo */
+            }
+
+            header .header-links a {
+                font-size: 0.9em; /* Smaller links */
+                padding: 8px 10px; /* Adjust padding */
+            }
+
+             section h2 {
+                font-size: 1.5em; /* Adjust heading size */
+                margin-bottom: 20px;
+            }
+        }
+
+        /* Ensure right alignment for larger screens */
+        .navbar-collapse {
+            display: flex;
+            flex-grow: 1;
+            justify-content: flex-end; /* Push content to the right */
+        }
+
+        .navbar-collapse .navbar-nav {
+             margin-left: auto; /* Ensure margin auto is applied */
+             align-items: center; /* Vertically align nav items */
+        }
+
+        .navbar-nav .nav-item {
+            margin-left: 15px; /* Add space between nav items */
+        }
+
+        .navbar-nav .nav-link {
+            padding: 10px 15px; /* Adjust padding for nav links */
+            border-radius: 5px; /* Slightly rounded corners */
+            transition: all 0.3s ease; /* Smooth transitions */
+            color: white; /* Explicitly set main nav link color to white */
+        }
+
+        .navbar-nav .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.1); /* Subtle white background on hover */
+            color: white; /* Ensure text stays white on hover */
+        }
+
+        .navbar-nav .nav-item.dropdown .nav-link {
+            padding-right: 25px; /* Add space for dropdown arrow */
+        }
+
+         .navbar-nav .nav-item.dropdown .nav-link::after {
+            margin-left: 10px; /* Adjust space for dropdown arrow */
+        }
+
+        /* Adjust dropdown menu appearance */
+        .dropdown-menu {
+            margin-top: 5px; /* Add space between nav item and dropdown */
+            border-radius: 5px; /* Consistent border radius */
+        }
+
+        .dropdown-item {
+             padding: 10px 20px; /* More padding for dropdown items */
+             color: #333; /* Explicitly set dropdown item color to dark grey */
+        }
+
+        .dropdown-item:hover {
+            background-color: #FF7F00; /* Orange background on hover */
+            color: white; /* White text on hover */
+        }
+    </style>
+    <script>
+        // Keep dropdowns working
+        document.addEventListener('DOMContentLoaded', function () {
+            var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'))
+            var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
+                return new bootstrap.Dropdown(dropdownToggleEl)
+            })
+
+        });
+    </script>
+</head>
+<body>
+    <!-- Header Section -->
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #4B2666;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html"><h1>EDUCATIONPATHWAY</h1></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            AL Stream
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="Physicalscience.html">Physical Science</a></li>
+                            <li><a class="dropdown-item" href="BIOSCIENCE.html">Bio Science</a></li>
+                            <li><a class="dropdown-item" href="commerce.html">Commerce</a></li>
+                            <li><a class="dropdown-item" href="Arts.html">Arts</a></li>
+                            <li><a class="dropdown-item" href="egineering Tech.html">Engineering Technology</a></li>
+                            <li><a class="dropdown-item" href="Bio System Tech.html">Bio Systems Technology</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Higher Education Guide
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                            <li><a class="dropdown-item" href="G.Uni.html">Sri Lankan Government Universities</a></li>
+                            <li><a class="dropdown-item" href="P.Uni.html">Approved Private Universities</a></li>
+                            <li><a class="dropdown-item" href="HND.html">Higher National Diploma Courses</a></li>
+                            <li><a class="dropdown-item" href="NVQ.html">NVQ Level Courses</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Find Suitable Degree.html"><B>Find Degree</B></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="About.html">About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 class="text-center">Find Your Suitable Degree</h1>
+        <form id="degree-form">
+            <div class="form-group">
+                <label for="district">Select Your District:</label>
+                <select class="form-control" id="district" name="district" required>
+                    <option value="">-Select District-</option>
+                    <option value="Colombo">Colombo</option>
+                    <option value="Gampaha">Gampaha</option>
+                    <option value="Kandy">Kandy</option>
+                    <option value="Galle">Galle</option>
+                    <option value="Matara">Matara</option>
+                    <option value="Hambantota">Hambantota</option>
+                    <option value="Jaffna">Jaffna</option>
+                    <option value="Kilinochchi">Kilinochchi</option>
+                    <option value="Mannar">Mannar</option>
+                    <option value="Vavuniya">Vavuniya</option>
+                    <option value="Mullaitivu">Mullaitivu</option>
+                    <option value="Batticaloa">Batticaloa</option>
+                    <option value="Ampara">Ampara</option>
+                    <option value="Trincomalee">Trincomalee</option>
+                    <option value="Kurunegala">Kurunegala</option>
+                    <option value="Puttalam">Puttalam</option>
+                    <option value="Anuradhapura">Anuradhapura</option>
+                    <option value="Polonnaruwa">Polonnaruwa</option>
+                    <option value="Badulla">Badulla</option>
+                    <option value="Monaragala">Monaragala</option>
+                    <option value="Ratnapura">Ratnapura</option>
+                    <option value="Kegalle">Kegalle</option>
+                    <option value="Nuwara Eliya">Nuwara Eliya</option>
+                    <option value="Matale">Matale</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="subject1">Select Subject 1:</label>
+                <select class="form-control" id="subject1" name="subject1" required>
+                    <option value="">-Select Subject-</option>
+                    <option value="Accounting">Accounting</option>
+                    <option value="Agricultural Science">Agricultural Science</option>
+                    <option value="Agro Technology">Agro Technology</option>
+                    <option value="Art">Art</option>
+                    <option value="Arabic">Arabic</option>
+                    <option value="Biology">Biology</option>
+                    <option value="Bio-Resource Technology">Bio-Resource Technology</option>
+                    <option value="Bio Systems Technology">Bio Systems Technology</option>
+                    <option value="Business Statistics">Business Statistics</option>
+                    <option value="Business Studies">Business Studies</option>
+                    <option value="Buddhism">Buddhism</option>
+                    <option value="Buddhist Civilization">Buddhist Civilization</option>
+                    <option value="Carnatic Music">Carnatic Music</option>
+                    <option value="Chinese">Chinese</option>
+                    <option value="Chemistry">Chemistry</option>
+                    <option value="Christian Civilization">Christian Civilization</option>
+                    <option value="Christianity">Christianity</option>
+                    <option value="Civil Technology">Civil Technology</option>
+                    <option value="Communication & Media Studies">Communication & Media Studies</option>
+                    <option value="Combined Mathematics">Combined Mathematics</option>
+                    <option value="Dancing (Indigeneous)">Dancing (Indigeneous) </option>
+                    <option value="Dancing (Bharata)">Dancing (Bharata) </option>
+                    <option value="Drama and Theatre (Sinhala)">Drama and Theatre (Sinhala)</option>
+                    <option value="Drama and Theatre (Tamil)">Drama and Theatre (Tamil)</option>
+                    <option value="Drama and Theatre (English)">Drama and Theatre (English)</option> 
+                    <option value="Economics">Economics</option>
+                    <option value="Electrical,Electronic and Information Technology">Electrical,Electronic and Information Technology</option>
+                    <option value="Engineering Technology">Engineering Technology</option>
+                    <option value="English">English</option>
+                    <option value="French">French</option>
+                    <option value="Food Technology">Food Technology</option>
+                    <option value="Geography">Geography</option>
+                    <option value="German">German</option> 
+                    <option value="Greek and Roman Civilization">Greek and Roman Civilization</option>
+                    <option value="Hindi">Hindi</option>
+                    <option value="Hindu Civilization">Hindu Civilization</option>
+                    <option value="Hinduism">Hindusim</option>
+                    <option value="History of India">History of India</option>
+                    <option value="History of Europe">History of Europe</option>
+                    <option value="History of Morden World">History of Morden World</option>
+                    <option value="Home Economics">Home Economics</option>
+                    <option value="Higher Mathematics">Higher Mathematics</option>
+                    <option value="Islam">Islam</option>
+                    <option value="Islam Civilization">Islam Civilization</option>
+                    <option value="Information & Communication Technology">Information & Communication Technology</option>
+                    <option value="Japanese">Japanese</option>
+                    <option value="Korean">Korean</option>
+                    <option value="Logic and Scientific Method">Logic and Scientific Method</option>
+                    <option value="Mathematics">Mathematics</option>
+                    <option value="Mechanical Technology">Mechanical Technology</option>
+                    <option value="Malay">Malay</option>
+                    <option value="Oriental Music">Oriental Music</option>
+                    <option value="Pali">Pali</option>
+                    <option value="Physics">Physics</option>
+                    <option value="Political Science">Political Science</option>
+                    <option value="Russian">Russian</option>
+                    <option value="Science for Technology">Science for Technology </option>
+                    <option value="Sanskrit">Sanskrit</option>
+                    <option value="Sinhala">Sinhala</option>
+                    <option value="Tamil">Tamil</option>
+                    <option value="Western Music">Western Music</option>    
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="subject2">Select Subject 2:</label>
+                <select class="form-control" id="subject2" name="subject2" required>
+                    <option value="">-Select Subject-</option>
+                    <option value="Accounting">Accounting</option>
+                    <option value="Agricultural Science">Agricultural Science</option>
+                    <option value="Agro Technology">Agro Technology</option>
+                    <option value="Art">Art</option>
+                    <option value="Arabic">Arabic</option>
+                    <option value="Biology">Biology</option>
+                    <option value="Bio-Resource Technology">Bio-Resource Technology</option>
+                    <option value="Bio Systems Technology">Bio Systems Technology</option>
+                    <option value="Business Statistics">Business Statistics</option>
+                    <option value="Business Studies">Business Studies</option>
+                    <option value="Buddhism">Buddhism</option>
+                    <option value="Buddhist Civilization">Buddhist Civilization</option>
+                    <option value="Carnatic Music">Carnatic Music</option>
+                    <option value="Chinese">Chinese</option>
+                    <option value="Chemistry">Chemistry</option>
+                    <option value="Christian Civilization">Christian Civilization</option>
+                    <option value="Christianity">Christianity</option>
+                    <option value="Civil Technology">Civil Technology</option>
+                    <option value="Communication & Media Studies">Communication & Media Studies</option>
+                    <option value="Combined Mathematics">Combined Mathematics</option>
+                    <option value="Dancing (Indigeneous)">Dancing (Indigeneous) </option>
+                    <option value="Dancing (Bharata)">Dancing (Bharata) </option>
+                    <option value="Drama and Theatre (Sinhala)">Drama and Theatre (Sinhala)</option>
+                    <option value="Drama and Theatre (Tamil)">Drama and Theatre (Tamil)</option>
+                    <option value="Drama and Theatre (English)">Drama and Theatre (English)</option> 
+                    <option value="Economics">Economics</option>
+                    <option value="Electrical,Electronic and Information Technology">Electrical,Electronic and Information Technology</option>
+                    <option value="Engineering Technology">Engineering Technology</option>
+                    <option value="English">English</option>
+                    <option value="French">French</option>
+                    <option value="Food Technology">Food Technology</option>
+                    <option value="Geography">Geography</option>
+                    <option value="German">German</option> 
+                    <option value="Greek and Roman Civilization">Greek and Roman Civilization</option>
+                    <option value="Hindi">Hindi</option>
+                    <option value="Hindu Civilization">Hindu Civilization</option>
+                    <option value="Hinduism">Hindusim</option>
+                    <option value="History of India">History of India</option>
+                    <option value="History of Europe">History of Europe</option>
+                    <option value="History of Morden World">History of Morden World</option>
+                    <option value="Home Economics">Home Economics</option>
+                    <option value="Higher Mathematics">Higher Mathematics</option>
+                    <option value="Islam">Islam</option>
+                    <option value="Islam Civilization">Islam Civilization</option>
+                    <option value="Information & Communication Technology">Information & Communication Technology</option>
+                    <option value="Japanese">Japanese</option>
+                    <option value="Korean">Korean</option>
+                    <option value="Logic and Scientific Method">Logic and Scientific Method</option>
+                    <option value="Mathematics">Mathematics</option>
+                    <option value="Mechanical Technology">Mechanical Technology</option>
+                    <option value="Malay">Malay</option>
+                    <option value="Oriental Music">Oriental Music</option>
+                    <option value="Pali">Pali</option>
+                    <option value="Physics">Physics</option>
+                    <option value="Political Science">Political Science</option>
+                    <option value="Russian">Russian</option>
+                    <option value="Science for Technology">Science for Technology </option>
+                    <option value="Sanskrit">Sanskrit</option>
+                    <option value="Sinhala">Sinhala</option>
+                    <option value="Tamil">Tamil</option>
+                    <option value="Western Music">Western Music</option>    
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="subject3">Select Subject 3:</label>
+                <select class="form-control" id="subject3" name="subject3" required>
+                    <option value="">-Select Subject-</option>
+                    <option value="Accounting">Accounting</option>
+                    <option value="Agricultural Science">Agricultural Science</option>
+                    <option value="Agro Technology">Agro Technology</option>
+                    <option value="Art">Art</option>
+                    <option value="Arabic">Arabic</option>
+                    <option value="Biology">Biology</option>
+                    <option value="Bio-Resource Technology">Bio-Resource Technology</option>
+                    <option value="Bio Systems Technology">Bio Systems Technology</option>
+                    <option value="Business Statistics">Business Statistics</option>
+                    <option value="Business Studies">Business Studies</option>
+                    <option value="Buddhism">Buddhism</option>
+                    <option value="Buddhist Civilization">Buddhist Civilization</option>
+                    <option value="Carnatic Music">Carnatic Music</option>
+                    <option value="Chinese">Chinese</option>
+                    <option value="Chemistry">Chemistry</option>
+                    <option value="Christian Civilization">Christian Civilization</option>
+                    <option value="Christianity">Christianity</option>
+                    <option value="Civil Technology">Civil Technology</option>
+                    <option value="Communication & Media Studies">Communication & Media Studies</option>
+                    <option value="Combined Mathematics">Combined Mathematics</option>
+                    <option value="Dancing (Indigeneous)">Dancing (Indigeneous) </option>
+                    <option value="Dancing (Bharata)">Dancing (Bharata) </option>
+                    <option value="Drama and Theatre (Sinhala)">Drama and Theatre (Sinhala)</option>
+                    <option value="Drama and Theatre (Tamil)">Drama and Theatre (Tamil)</option>
+                    <option value="Drama and Theatre (English)">Drama and Theatre (English)</option> 
+                    <option value="Economics">Economics</option>
+                    <option value="Electrical,Electronic and Information Technology">Electrical,Electronic and Information Technology</option>
+                    <option value="Engineering Technology">Engineering Technology</option>
+                    <option value="English">English</option>
+                    <option value="French">French</option>
+                    <option value="Food Technology">Food Technology</option>
+                    <option value="Geography">Geography</option>
+                    <option value="German">German</option> 
+                    <option value="Greek and Roman Civilization">Greek and Roman Civilization</option>
+                    <option value="Hindi">Hindi</option>
+                    <option value="Hindu Civilization">Hindu Civilization</option>
+                    <option value="Hinduism">Hindusim</option>
+                    <option value="History of India">History of India</option>
+                    <option value="History of Europe">History of Europe</option>
+                    <option value="History of Morden World">History of Morden World</option>
+                    <option value="Home Economics">Home Economics</option>
+                    <option value="Higher Mathematics">Higher Mathematics</option>
+                    <option value="Islam">Islam</option>
+                    <option value="Islam Civilization">Islam Civilization</option>
+                    <option value="Information & Communication Technology">Information & Communication Technology</option>
+                    <option value="Japanese">Japanese</option>
+                    <option value="Korean">Korean</option>
+                    <option value="Logic and Scientific Method">Logic and Scientific Method</option>
+                    <option value="Mathematics">Mathematics</option>
+                    <option value="Mechanical Technology">Mechanical Technology</option>
+                    <option value="Malay">Malay</option>
+                    <option value="Oriental Music">Oriental Music</option>
+                    <option value="Pali">Pali</option>
+                    <option value="Physics">Physics</option>
+                    <option value="Political Science">Political Science</option>
+                    <option value="Russian">Russian</option>
+                    <option value="Science for Technology">Science for Technology </option>
+                    <option value="Sanskrit">Sanskrit</option>
+                    <option value="Sinhala">Sinhala</option>
+                    <option value="Tamil">Tamil</option>
+                    <option value="Western Music">Western Music</option>    
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="zscore">Enter Your Z-score:</label>
+                <input type="number" class="form-control" id="zscore" name="zscore" step="0.001" min="-4.0000" max="4.0000" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Find Degrees</button>
+        </form>
+        <div id="result">
+            <!-- Suitable degrees will be displayed here -->
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

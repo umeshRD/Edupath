@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Degree Finder</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <style>
+        body {
+            min-height: 100vh;
+            background-image: url('20891047 copy.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .dashboard-title {
+            color: #4B2666;
+            margin: 0;
+        }
+
+        .btn-logout {
+            padding: 8px 20px;
+            background: #4B2666;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-logout:hover {
+            background: #6b6bff;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 20px;
+        }
+
+        .table th {
+            background: #4B2666;
+            color: white;
+            padding: 15px;
+            text-align: left;
+        }
+
+        .table td {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .table tbody tr:hover {
+            background: rgba(75, 38, 102, 0.05);
+        }
+
+        .search-container {
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #4B2666;
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <h2 class="dashboard-title">Admin Dashboard</h2>
+            <button class="btn-logout" onclick="handleLogout()">Logout</button>
+        </div>
+
+        <div class="filter-container" style="margin-bottom: 20px; display: flex; gap: 15px; flex-wrap: wrap;">
+            <select class="form-select" id="streamFilter" style="flex: 1; min-width: 200px; padding: 10px; border-radius: 8px; border: 1px solid #ddd;">
+                <option value="">All Streams</option>
+                <option value="science">Science</option>
+                <option value="commerce">Commerce</option>
+                <option value="arts">Arts</option>
+                <option value="technology">Technology</option>
+                <option value="maths">Maths</option>
+            </select>
+
+            <select class="form-select" id="provinceFilter" style="flex: 1; min-width: 200px; padding: 10px; border-radius: 8px; border: 1px solid #ddd;" onchange="updateDistrictFilter()">
+                <option value="">All Provinces</option>
+                <option value="western">Western</option>
+                <option value="central">Central</option>
+                <option value="southern">Southern</option>
+                <option value="northern">Northern</option>
+                <option value="eastern">Eastern</option>
+                <option value="northWestern">North Western</option>
+                <option value="northCentral">North Central</option>
+                <option value="uva">Uva</option>
+                <option value="sabaragamuwa">Sabaragamuwa</option>
+            </select>
+
+            <select class="form-select" id="districtFilter" style="flex: 1; min-width: 200px; padding: 10px; border-radius: 8px; border: 1px solid #ddd;">
+                <option value="">All Districts</option>
+            </select>
+
+            <button onclick="exportToExcel()" class="btn-export" style="padding: 10px 20px; background: #4B2666; color: white; border: none; border-radius: 8px; cursor: pointer; transition: all 0.3s ease;">
+                Export to Excel
+            </button>
+        </div>
+
+        <div class="search-container">
+            <input type="text" class="search-input" id="searchInput" placeholder="Search students..." onkeyup="searchStudents()">
+        </div>
+
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Contact</th>
+                        <th>Stream</th>
+                        <th>Province</th>
+                        <th>District</th>
+                        <th>AL Year</th>
+                        <th>School</th>
+                        <th>Registration Date</th>
+                    </tr>
+                </thead>
+                <tbody id="studentTableBody">
+                    <tr>
+                        <td colspan="9" class="loading">Loading student data...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Popup Poster Ad Upload Section -->
+    <div class="dashboard-container" style="margin-top: 30px;">
+        <h3>Popup Poster Ad</h3>
+        <form id="posterUploadForm">
+            <label for="posterPageSelect">Select Page:</label>
+            <select id="posterPageSelect" required style="margin: 0 10px 10px 10px;">
+                <option value="Physicalscience">Physical Science</option>
+                <option value="BIOSCIENCE">BIOSCIENCE</option>
+                <option value="commerce">Commerce</option>
+                <option value="Arts">Arts</option>
+                <option value="egineeringTech">Engineering Tech</option>
+                <option value="BioSystemTech">Bio System Tech</option>
+            </select>
+            <input type="file" id="posterInput" accept="image/*" required />
+            <button type="submit" class="btn btn-primary" style="margin-left: 10px;">Upload Poster</button>
+        </form>
+        <div id="currentPoster" style="margin-top: 15px;"></div>
+    </div>
+
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyB3sd3HGu86C-gfclco88x8bSaeQDKY9as",
+            authDomain: "educationpathway2025.firebaseapp.com",
+            databaseURL: "https://educationpathway2025-default-rtdb.firebaseio.com",
+            projectId: "educationpathway2025",
+            storageBucket: "educationpathway2025.firebasestorage.app",
+            messagingSenderId: "290312110364",
+            appId: "1:290312110364:web:f5a6fc524f9a4da5547ad9",
+            measurementId: "G-KLX21M5HFW"
+        };
+
+        // Initialize Firebase
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const database = firebase.database();
+
+        // Check if user is logged in as admin
+        if (!sessionStorage.getItem('adminLoggedIn')) {
+            window.location.href = 'admin-login.html';
+        }
+
+        // Function to handle logout
+        function handleLogout() {
+            sessionStorage.removeItem('adminLoggedIn');
+            window.location.href = 'welcome.html';
+        }
+
+        // District mapping for each province
+        const provinceDistricts = {
+            western: ['Colombo', 'Gampaha', 'Kalutara'],
+            central: ['Kandy', 'Matale', 'Nuwara Eliya'],
+            southern: ['Galle', 'Matara', 'Hambantota'],
+            northern: ['Jaffna', 'Kilinochchi', 'Mannar', 'Mullaitivu', 'Vavuniya'],
+            eastern: ['Batticaloa', 'Ampara', 'Trincomalee'],
+            northWestern: ['Kurunegala', 'Puttalam'],
+            northCentral: ['Anuradhapura', 'Polonnaruwa'],
+            uva: ['Badulla', 'Monaragala'],
+            sabaragamuwa: ['Kegalle', 'Ratnapura']
+        };
+
+        // Function to update district filter based on selected province
+        function updateDistrictFilter() {
+            const provinceSelect = document.getElementById('provinceFilter');
+            const districtSelect = document.getElementById('districtFilter');
+            const selectedProvince = provinceSelect.value;
+
+            // Clear existing options
+            districtSelect.innerHTML = '<option value="">All Districts</option>';
+
+            if (selectedProvince) {
+                // Add districts for selected province
+                const districts = provinceDistricts[selectedProvince];
+                districts.forEach(district => {
+                    const option = document.createElement('option');
+                    option.value = district.toLowerCase();
+                    option.textContent = district;
+                    districtSelect.appendChild(option);
+                });
+            }
+        }
+
+        // Function to apply filters
+        function applyFilters(students) {
+            const streamFilter = document.getElementById('streamFilter').value.toLowerCase();
+            const provinceFilter = document.getElementById('provinceFilter').value.toLowerCase();
+            const districtFilter = document.getElementById('districtFilter').value.toLowerCase();
+
+            return students.filter(student => {
+                const matchesStream = !streamFilter || (student.stream && student.stream.toLowerCase() === streamFilter);
+                const matchesProvince = !provinceFilter || (student.province && student.province.toLowerCase() === provinceFilter);
+                const matchesDistrict = !districtFilter || (student.district && student.district.toLowerCase() === districtFilter);
+                
+                return matchesStream && matchesProvince && matchesDistrict;
+            });
+        }
+
+        // Function to fetch and display student data
+        function loadStudentData() {
+            const tableBody = document.getElementById('studentTableBody');
+            
+            // Listen for changes in the users node
+            database.ref('users').on('value', (snapshot) => {
+                const students = snapshot.val();
+                tableBody.innerHTML = '';
+
+                if (!students) {
+                    tableBody.innerHTML = '<tr><td colspan="9" class="no-data">No student data available</td></tr>';
+                    return;
+                }
+
+                // Convert object to array and sort by registration date
+                let studentArray = Object.entries(students).map(([id, data]) => ({
+                    id,
+                    ...data
+                })).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+                // Apply filters
+                studentArray = applyFilters(studentArray);
+
+                studentArray.forEach(student => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${student.name || '-'}</td>
+                        <td>${student.email || '-'}</td>
+                        <td>${student.contact || '-'}</td>
+                        <td>${student.stream || '-'}</td>
+                        <td>${student.province || '-'}</td>
+                        <td>${student.district || '-'}</td>
+                        <td>${student.alYear || '-'}</td>
+                        <td>${student.school || '-'}</td>
+                        <td>${new Date(student.createdAt).toLocaleDateString() || '-'}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            }, (error) => {
+                console.error('Error loading student data:', error);
+                tableBody.innerHTML = '<tr><td colspan="9" class="no-data">Error loading student data</td></tr>';
+            });
+        }
+
+        // Add event listeners for filters
+        document.getElementById('streamFilter').addEventListener('change', loadStudentData);
+        document.getElementById('provinceFilter').addEventListener('change', loadStudentData);
+        document.getElementById('districtFilter').addEventListener('change', loadStudentData);
+
+        // Function to export filtered data to Excel
+        function exportToExcel() {
+            // Get the table data
+            const table = document.querySelector('.table');
+            const rows = Array.from(table.querySelectorAll('tbody tr'));
+            
+            // Create CSV content
+            let csvContent = "Name,Email,Contact,Stream,Province,District,AL Year,School,Registration Date\n";
+            
+            rows.forEach(row => {
+                const cells = row.querySelectorAll('td');
+                const rowData = Array.from(cells).map(cell => {
+                    // Escape commas and quotes in cell content
+                    let content = cell.textContent.trim();
+                    if (content.includes(',') || content.includes('"')) {
+                        content = `"${content.replace(/"/g, '""')}"`;
+                    }
+                    return content;
+                });
+                csvContent += rowData.join(',') + '\n';
+            });
+
+            // Create a Blob and download link
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            
+            // Set download attributes
+            link.setAttribute('href', url);
+            link.setAttribute('download', `student_data_${new Date().toISOString().split('T')[0]}.csv`);
+            link.style.visibility = 'hidden';
+            
+            // Add link to document, click it, and remove it
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Function to search students
+        function searchStudents() {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toLowerCase();
+            const table = document.getElementById('studentTableBody');
+            const rows = table.getElementsByTagName('tr');
+
+            for (let i = 0; i < rows.length; i++) {
+                const row = rows[i];
+                const cells = row.getElementsByTagName('td');
+                let found = false;
+
+                for (let j = 0; j < cells.length; j++) {
+                    const cell = cells[j];
+                    if (cell.textContent.toLowerCase().indexOf(filter) > -1) {
+                        found = true;
+                        break;
+                    }
+                }
+
+                row.style.display = found ? '' : 'none';
+            }
+        }
+
+        // Load student data when the page loads
+        window.onload = loadStudentData;
+
+        // --- Popup Poster Ad Upload Logic ---
+        const posterForm = document.getElementById('posterUploadForm');
+        const posterInput = document.getElementById('posterInput');
+        const posterPageSelect = document.getElementById('posterPageSelect');
+        const currentPosterDiv = document.getElementById('currentPoster');
+
+        // Show current poster for selected page
+        function loadCurrentPoster() {
+            const pageKey = posterPageSelect.value;
+            database.ref('popupAdPoster_' + pageKey).once('value').then(snapshot => {
+                const data = snapshot.val();
+                if (data) {
+                    currentPosterDiv.innerHTML = `<img src="${data}" alt="Current Poster" style="max-width:300px;max-height:300px;display:block;margin-bottom:10px;" />`;
+                } else {
+                    currentPosterDiv.innerHTML = '<em>No poster uploaded yet for this page.</em>';
+                }
+            });
+        }
+        loadCurrentPoster();
+        posterPageSelect.onchange = loadCurrentPoster;
+
+        posterForm.onsubmit = function(e) {
+            e.preventDefault();
+            const file = posterInput.files[0];
+            const pageKey = posterPageSelect.value;
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const base64 = event.target.result;
+                database.ref('popupAdPoster_' + pageKey).set(base64, (err) => {
+                    if (!err) {
+                        alert('Poster uploaded successfully!');
+                        loadCurrentPoster();
+                    } else {
+                        alert('Error uploading poster.');
+                    }
+                });
+            };
+            reader.readAsDataURL(file);
+        };
+        // End Popup Poster Ad Upload Section
+    </script>
+</body>
+</html> 

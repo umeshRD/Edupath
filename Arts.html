@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+    <title>Arts</title>
+    <style>
+         body {
+     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    position: relative;
+    z-index: 1;
+
+    }
+     
+    
+        /* General reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        .syllabus-btn {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .syllabus-btn:hover {
+        background-color: #45a049;
+        transform: scale(1.05);
+    }
+
+    .syllabus-list {
+        display: none;
+        list-style-type: none;
+        padding-left: 0;
+        margin-top: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        padding: 10px;
+    }
+
+    .syllabus-list li {
+        padding: 5px 0;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .syllabus-list li:last-child {
+        border-bottom: none;
+    }
+    .syllabus-btn {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .syllabus-btn:hover {
+        background-color: #45a049;
+        transform: scale(1.05);
+    }
+
+    .syllabus-list {
+        display: none;
+        list-style-type: none;
+        padding-left: 0;
+        margin-top: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        padding: 10px;
+    }
+
+    .syllabus-list li {
+        padding: 5px 0;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .syllabus-list li:last-child {
+        border-bottom: none;
+    }
+        /* Header */
+        header {
+            background-color: #4B2666;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: white;
+            flex-wrap: wrap; /* Allow wrapping for smaller screens */
+        }
+
+        header img {
+            height: 50px;
+            margin-right: 20px;
+        }
+
+        header .header-links {
+            display: flex;
+            gap: 15px;
+            font-size: 18px;
+            flex-wrap: wrap; /* Allow links to wrap */
+        }
+
+        header .header-links a {
+            color: white;
+            text-decoration: none;
+            position: relative;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        header .header-links a:hover {
+            background-color: #FF7F00;
+        }
+
+        /* Dropdown menu */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: rgb(81, 81, 81);
+            color: #4B2666;
+            min-width: 200px;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 10px 15px;
+            text-decoration: none;
+            color: #4B2666;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #FF7F00;
+            color: white;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Main Button Style */
+        .main-button {
+            background-color: #FF7F00;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+
+        .main-button:hover {
+            background-color: #FF5500;
+        }
+
+        /* Main Banner */
+        .banner {
+            text-align: center;
+            margin: 20px 0;
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .banner-images {
+            display: flex;
+            transition: transform 5s ease-in-out;
+        }
+
+        .banner img {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .banner p {
+            font-size: 24px;
+            color: #4B2666;
+            margin-top: 10px;
+        }
+
+        /* Categories Section */
+        .categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap; /* Allow wrapping */
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .category img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-bottom: 5px;
+        }
+
+        .category p {
+            text-align: center;
+            font-size: 16px;
+        }
+         /* Dropdown menu */
+         .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: rgb(81, 81, 81);
+            color: #4B2666;
+            min-width: 200px;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 10px 15px;
+            text-decoration: none;
+            color: #4B2666;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #FF7F00;
+            color: white;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #4B2666;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column; /* Stack items vertically */
+                align-items: flex-start;
+            }
+
+            header .header-links {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+
+            .banner img {
+                max-height: 300px; /* Reduce banner height */
+            }
+
+            .categories {
+                gap: 10px; /* Reduce gap between categories */
+            }
+
+            .category img {
+                width: 60px;
+                height: 60px; /* Smaller icons */
+            }
+
+            .category p {
+                font-size: 14px; /* Smaller text */
+            }
+        }
+
+        @media (max-width: 480px) {
+            header img {
+                height: 40px; /* Smaller logo */
+            }
+
+            header .header-links a {
+                font-size: 14px; /* Smaller links */
+                padding: 8px 10px; /* Adjust padding */
+            }
+
+            .banner img {
+                max-height: 250px; /* Further reduce banner height */
+            }
+
+            footer {
+                font-size: 14px; /* Smaller footer text */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #4B2666;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><h1>EDUCATIONPATHWAY</h1></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            AL Stream
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="Physicalscience.html">Physical Science</a></li>
+                            <li><a class="dropdown-item" href="BIOSCIENCE.html">Bio Science</a></li>
+                            <li><a class="dropdown-item" href="commerce.html">Commerce</a></li>
+                            <li><a class="dropdown-item" href="Arts.html">Arts</a></li>
+                            <li><a class="dropdown-item" href="egineering Tech.html">Engineering Technology</a></li>
+                            <li><a class="dropdown-item" href="Bio System Tech.html">Bio Systems Technology</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Higher Education Guide
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                            <li><a class="dropdown-item" href="G.Uni.html">Sri Lankan Government Universities</a></li>
+                            <li><a class="dropdown-item" href="P.Uni.html">Approved Private Universities</a></li>
+                            <li><a class="dropdown-item" href="HND.html">Higher National Diploma Courses</a></li>
+                            <li><a class="dropdown-item" href="NVQ.html">NVQ Level Courses</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Find Suitable Degree.html"><B>Find Degree</B></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="About.html">About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+<br>
+    <div class="container">
+
+        <h1><center><b>Sri Lankan A/L Arts Stream</b></center></h1>
+        <h2>Subjects in the Arts Stream</h2>
+        <p>The Arts stream in Sri Lankan Advanced Level (A/L) offers a wide range of subjects that students can choose from. These subjects include:</p>
+        <h2>Basket 01 - Social Sciences / Applied Social Studies:</h2>
+    <ol>
+        <li>Economics</li>
+        <li>Geography</li>
+        <li>History</li>
+        <li>Home Economics</li>
+        <li>Agricultural Science / Mathematics / Combined Mathematics</li>
+        <li>Communication & Media Studies</li>
+        <li>Information & Communication Technology</li>
+        <li>Accounting / Business Statistics</li>
+        <li>Political Science</li>
+        <li>Logic & Scientific Method</li>
+        <li>One subject from Technological Subjects:
+            <ul>
+                <li>Civil Technology</li>
+                <li>Electrical, Electronic and Information Technology</li>
+                <li>Agro Technology</li>
+                <li>Mechanical Technology</li>
+                <li>Food Technology</li>
+                <li>Bio-Resource Technology</li>
+            </ul>
+        </li>
+    </ol>
+    
+    <h2>There are three exceptions to this rule:</h2>
+    <ol>
+        <li>Students selecting three National Languages; Sinhala, Tamil, and English from Basket 04 (Language Basket) as the three subjects, need not select any subject from Basket 01.</li>
+        <li>Students selecting a combination of National and Classical languages need not select any subject from Basket 01.
+            <p>National Languages are:</p>
+            <ul>
+                <li>Sinhala</li>
+                <li>Tamil</li>
+                <li>English</li>
+            </ul>
+            <p>Classical Languages are:</p>
+            <ul>
+                <li>Arabic</li>
+                <li>Pali</li>
+                <li>Sanskrit</li>
+            </ul>
+            <p>For example, students can select three subjects like Sinhala, Pali, and Sanskrit, etc. These students need not select any subject from Basket 01. However, no candidate can select three classical languages as three subjects. They can select a maximum of two classical languages only.</p>
+        </li>
+        <li>Students selecting two languages from Basket 04 and the third subject from Religions and Civilizations or Aesthetic subject classified under Basket 02 and 03 given below need not select any subject from Basket 01.</li>
+    </ol>
+    
+    <h2>Basket 02 - Religions and Civilizations:</h2>
+    <ol>
+        <li>Buddhism</li>
+        <li>Hinduism</li>
+        <li>Christianity</li>
+        <li>Islam</li>
+        <li>Buddhist Civilization</li>
+        <li>Hindu Civilization</li>
+        <li>Christian Civilization</li>
+        <li>Islamic Civilization</li>
+        <li>Greek & Roman Civilization</li>
+    </ol>
+    
+    <h3>Guidance for selection of subjects from Basket 02:</h3>
+    <ul>
+        <li>A candidate can select a maximum of two subjects from Basket 02.</li>
+        <li>However, if a religion (e.g., Buddhism) is selected as a subject, the related civilization of the selected religion (e.g., Buddhist Civilization) cannot be offered as another subject from this basket.</li>
+    </ul>
+    
+    <h2>Basket 03 - Aesthetic Studies:</h2>
+    <p>Aesthetic subjects consist of four subject areas. These are:</p>
+    <ol>
+        <li>Art</li>
+        <li>Dancing</li>
+        <li>Music</li>
+        <li>Drama & Theatre</li>
+    </ol>
+    
+    <p>This can be further sub-classified as:</p>
+    <ul>
+        <li>Art</li>
+        <li>Dancing
+            <ul>
+                <li>Sinhala</li>
+                <li>Baratha</li>
+            </ul>
+        </li>
+        <li>Music
+            <ul>
+                <li>Oriental</li>
+                <li>Carnatic</li>
+                <li>Western</li>
+            </ul>
+        </li>
+        <li>Drama & Theatre
+            <ul>
+                <li>Sinhala</li>
+                <li>Tamil</li>
+                <li>English</li>
+            </ul>
+        </li>
+    </ul>
+    
+    <h3>Guidance for selection of subjects from Basket 03:</h3>
+    <ul>
+        <li>Students can select two subjects out of the above four subject areas. However, no student is allowed to select two subjects from one subject area.</li>
+    </ul>
+    
+    <h2>Basket 04 - Languages:</h2>
+    <p>The language basket has three subject areas. These are:</p>
+    <ul>
+        <li>National Languages</li>
+        <li>Classical Languages</li>
+        <li>Foreign Languages</li>
+    </ul>
+    
+    <p>National Languages are:</p>
+    <ul>
+        <li>Sinhala</li>
+        <li>Tamil</li>
+        <li>English</li>
+    </ul>
+    
+    <p>Classical Languages are:</p>
+    <ul>
+        <li>Arabic</li>
+        <li>Pali</li>
+        <li>Sanskrit</li>
+    </ul>
+    
+    <p>Foreign Languages are:</p>
+    <ul>
+        <li>Chinese</li>
+        <li>French</li>
+        <li>German</li>
+        <li>Hindi</li>
+        <li>Japanese</li>
+        <li>Malay</li>
+        <li>Russian</li>
+        <li>Korean</li>
+    </ul>
+    <h2>1. General Arts Programs</h2>
+    <ul>
+        <li><strong>Arts</strong>
+            <ul>
+                <li>University of Colombo</li>
+                <li>University of Kelaniya</li>
+                <li>University of Sri Jayewardenepura</li>
+                <li>University of Ruhuna</li>
+                <li>University of Peradeniya</li>
+                <li>University of Jaffna</li>
+                <li>Eastern University, Sri Lanka</li>
+                <li>South Eastern University of Sri Lanka</li>
+                <li>Rajarata University of Sri Lanka</li>
+            </ul>
+        </li>
+        <li><strong>Arts (SP)</strong>
+            <ul>
+                <li>Sripalee Campus, University of Colombo (SP)</li>
+            </ul>
+        </li>
+        <li><strong>Arts (SAB)</strong>
+            <ul>
+                <li>Sabaragamuwa University of Sri Lanka</li>
+            </ul>
+        </li>
+        <li><strong>Communication Studies</strong>
+            <ul>
+                <li>Trincomalee Campus of the Eastern University, Sri Lanka</li>
+            </ul>
+        </li>
+        <li><strong>Peace and Conflict Resolution</strong>
+            <ul>
+                <li>University of Kelaniya</li>
+            </ul>
+        </li>
+        <li><strong>Islamic Studies</strong>
+            <ul>
+                <li>South Eastern University of Sri Lanka</li>
+            </ul>
+        </li>
+        <li><strong>Arabic Language</strong>
+            <ul>
+                <li>South Eastern University of Sri Lanka</li>
+            </ul>
+        </li>
+        <li><strong>Teaching English as a Second Language (TESL)</strong>
+            <ul>
+                <li>University of Kelaniya</li>
+                <li>University of Sri Jayewardenepura</li>
+            </ul>
+        </li>
+        <li><strong>Social Work</strong>
+            <ul>
+                <li>University of Peradeniya</li>
+                <li>University of Sri Jayewardenepura</li>
+            </ul>
+        </li>
+        <li><strong>Arts - Information Technology</strong>
+            <ul>
+                <li>University of Sri Jayewardenepura</li>
+            </ul>
+        </li>
+    </ul>
+    
+    <h2>2. Specialized Arts Programs</h2>
+    <ul>
+        <li><strong>Music</strong>
+            <ul>
+                <li>University of Sri Jayewardenepura</li>
+                <li>University of Jaffna</li>
+                <li>University of the Visual & Performing Arts</li>
+                <li>Swami Vipulananda Institute of Aesthetic Studies</li>
+            </ul>
+        </li>
+        <li><strong>Dance</strong>
+            <ul>
+                <li>University of Jaffna</li>
+                <li>University of the Visual & Performing Arts</li>
+                <li>Swami Vipulananda Institute of Aesthetic Studies</li>
+            </ul>
+        </li>
+        <li><strong>Drama & Theatre</strong>
+            <ul>
+                <li>University of the Visual & Performing Arts</li>
+                <li>Swami Vipulananda Institute of Aesthetic Studies</li>
+            </ul>
+        </li>
+        <li><strong>Visual Arts</strong>
+            <ul>
+                <li>University of the Visual & Performing Arts</li>
+            </ul>
+        </li>
+        <li><strong>Visual & Technological Arts</strong>
+            <ul>
+                <li>Swami Vipulananda Institute of Aesthetic Studies</li>
+            </ul>
+        </li>
+        <li><strong>Art & Design</strong>
+            <ul>
+                <li>University of Jaffna</li>
+            </ul>
+        </li>
+    </ul>
+    <h2>Syllabus</h2>
+    <button onclick="toggleSyllabus()" class="syllabus-btn">Download Syllabus & Past papers</button>
+    <ul id="syllabusList" class="syllabus-list">
+        <li><a href="https://drive.google.com/drive/folders/1wYcsewiU_keKfXvLJjQSgxjp6Vlic3ox?usp=drive_link" target="_blank">Economics</a></li>
+        <li><a href="https://drive.google.com/drive/folders/1BnExoyHRhzZzDTicxGqZEQa_MZdW6XuK?usp=drive_link" target="_blank">Geography</a></li>
+        <li><a href="https://drive.google.com/drive/folders/1oBnyP-ngJ4c36U1DRMX3yt4WeKXfkA11?usp=drive_link" target="_blank">History</a></li>
+        <li><a href="https://drive.google.com/drive/folders/1UbzEOsHLPB9ut6399D5BHoa7dDNtqMoU?usp=drive_link" target="_blank">Home Economics</a></li>
+        <li><a href="https://drive.google.com/drive/folders/11gQ6nyJu3H8Y_BCn_A2hUusDjvpxi8j3?usp=drive_link" target="_blank">Agricultural Science</a></li>
+        <li><a href="#" target="_blank">Mathematics</a></li>
+        <li><a href="https://drive.google.com/drive/folders/1xK57blgb-O4FTP9w_Aih9OMdKp4b8fv5?usp=drive_link" target="_blank">Combined Mathematics</a></li>
+        <li><a href="https://drive.google.com/drive/folders/1XN2tw8R1LiYq4GtbbNYUTc-T3mgmJdnM?usp=drive_link" target="_blank">Communication & Media Studies</a></li>
+        <li><a href="https://drive.google.com/drive/folders/1afUQw2zmagfHQeoTjJyDl2sdyPAlBUHN?usp=drive_link" target="_blank">Information & Communication Technology</a></li>
+        <li><a href="https://drive.google.com/drive/folders/1Bsr1mCmpvZNZTAx5nHdg_zw2waOQkj3W?usp=drive_link" target="_blank">Accounting</a></li>
+        <li><a href="https://drive.google.com/drive/folders/1dBFesTVbSoukDzbq44-x7h_B1K-g_954?usp=drive_link" target="_blank">Business Statistics</a></li>
+        <li><a href="https://drive.google.com/drive/folders/1Jcv_MmGbNxBwMzD9dmFR3YoIXz0ZmsDg?usp=drive_link" target="_blank">Political Science</a></li>
+        <li><a href="https://drive.google.com/drive/folders/1sV4tCQ--qfBOq7siU1jnssql3h26PCnr?usp=drive_link" target="_blank">Logic & Scientific Method</a></li>
+        <li><a href="https://drive.google.com/drive/folders/1qrC7QQ2a8gkOLH4zOJZnz4XocEhBwMjf?usp=drive_link" target="_blank">Civil Technology</a></li>
+        <li><a href="https://drive.google.com/drive/folders/1HZW1AT6Bweb2VsEQHHg8kYC4RxFhOvfW?usp=drive_link" target="_blank">Electrical, Electronic and Information Technology</a></li>
+        <li><a href="https://drive.google.com/drive/folders/1tDIMFkrWsUY5njxTzwxRt3eCapYwEBVA?usp=drive_link" target="_blank">Agro Technology</a></li>
+        <li><a href="https://drive.google.com/drive/folders/12r69xzNEwtT7LVuiVNHcXHamZyY-ag5N?usp=drive_link" target="_blank">Mechanical Technology</a></li>
+        <li><a href="https://drive.google.com/drive/folders/1UPtmSd6vlJab1e8-SkQarM1gR1FIrEa0?usp=drive_link" target="_blank">Food Technology</a></li>
+        <li><a href="https://drive.google.com/drive/folders/1QkhEABCQBlRMaHDVfY210Or8Fv0RQr9q?usp=drive_link" target="_blank">Bio-Resource Technology</a></li>
+    </ul>
+<br>
+<br>
+<br>
+<br>
+    <h2>Admission and Academic Focus</h2>
+    <p>
+        Admission to the programs listed above is typically based on an All-Island Merit basis, meaning that students are selected based on their academic performance and examination results. The Arts stream is designed to provide students with a well-rounded education, promoting critical thinking, cultural awareness, and effective communication skills.
+    </p>
+    <p>
+        By choosing from a variety of programs and specializations, students can tailor their education to their interests and career goals, whether in the traditional arts, media, social sciences, or specialized creative fields.
+    </p>
+    
+    </div>
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 Education pathway Site. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript for Image Slideshow -->
+    <script>
+        let currentIndex = 0;
+        const bannerImages = document.querySelector('.banner-images');
+
+        function slideBanner() {
+            currentIndex = (currentIndex + 1) % 2;
+            bannerImages.style.transform = `translateX(-${currentIndex * 100}%)`;
+        }
+
+        setInterval(slideBanner, 5000);
+    </script>
+     <script>
+        function toggleSyllabus() {
+            var syllabusList = document.getElementById("syllabusList");
+            if (syllabusList.style.display === "none" || syllabusList.style.display === "") {
+                syllabusList.style.display = "block";
+            } else {
+                syllabusList.style.display = "none";
+            }
+        }
+    </script>
+    
+    <!-- Popup Poster Modal -->
+    <div id="popupAdModal" style="display:none;position:fixed;z-index:9999;left:0;top:0;width:100vw;height:100vh;background:rgba(0,0,0,0.6);justify-content:center;align-items:center;">
+      <div style="background:#fff;padding:20px 20px 10px 20px;border-radius:12px;max-width:90vw;max-height:90vh;box-shadow:0 8px 32px rgba(0,0,0,0.2);position:relative;text-align:center;">
+        <img id="popupAdImage" src="" alt="Ad Poster" style="max-width:80vw;max-height:60vh;display:block;margin:0 auto 20px auto;" />
+        <button id="closePopupAd" style="padding:10px 30px;border:none;border-radius:6px;background:#4B2666;color:#fff;font-size:18px;cursor:not-allowed;opacity:0.6;" disabled>Close</button>
+      </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <script>
+      // Firebase config (same as admin panel)
+      const firebaseConfig = {
+        apiKey: "AIzaSyB3sd3HGu86C-gfclco88x8bSaeQDKY9as",
+        authDomain: "educationpathway2025.firebaseapp.com",
+        databaseURL: "https://educationpathway2025-default-rtdb.firebaseio.com",
+        projectId: "educationpathway2025",
+        storageBucket: "educationpathway2025.firebasestorage.app",
+        messagingSenderId: "290312110364",
+        appId: "1:290312110364:web:f5a6fc524f9a4da5547ad9",
+        measurementId: "G-KLX21M5HFW"
+      };
+      // Initialize Firebase
+      if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+      }
+      const database = firebase.database();
+
+      // Show popup on page load
+      window.addEventListener('DOMContentLoaded', function() {
+        database.ref('popupAdPoster_Arts').once('value').then(snapshot => {
+          const data = snapshot.val();
+          if (data) {
+            document.getElementById('popupAdImage').src = data;
+            document.getElementById('popupAdModal').style.display = 'flex';
+            // Disable close button for 3 seconds with countdown
+            const closeBtn = document.getElementById('closePopupAd');
+            let countdown = 3;
+            closeBtn.disabled = true;
+            closeBtn.style.cursor = 'not-allowed';
+            closeBtn.style.opacity = '0.6';
+            closeBtn.textContent = `Close (${countdown})`;
+            const interval = setInterval(() => {
+              countdown--;
+              if (countdown > 0) {
+                closeBtn.textContent = `Close (${countdown})`;
+              } else {
+                clearInterval(interval);
+                closeBtn.disabled = false;
+                closeBtn.style.cursor = 'pointer';
+                closeBtn.style.opacity = '1';
+                closeBtn.textContent = 'Close';
+              }
+            }, 1000);
+          }
+        });
+      });
+      // Close modal
+      document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('closePopupAd').onclick = function() {
+          document.getElementById('popupAdModal').style.display = 'none';
+        };
+      });
+    </script>
+    <!-- End Popup Poster Modal -->
+</body>
+</html>

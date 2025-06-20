@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+</body>
+
+    <title>Government universities</title>
+    <style>
+         body {
+     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    position: relative;
+    z-index: 1;
+    line-height: 1.6;
+    background-color: #f8f9fa; /* Light background for better contrast */
+    color: #333; /* Default text color */
+
+    }
+     
+    
+        /* General reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+            transition: all 0.3s ease-in-out; /* Smooth transitions for all elements */
+        }
+        .syllabus-btn {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 12px 25px; /* Adjusted padding */
+        border-radius: 25px; /* Pill shape */
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition and subtle lift */
+        font-weight: bold; /* Bold text */
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow */
+    }
+
+    .syllabus-btn:hover {
+        background-color: #45a049;
+        transform: scale(1.05);
+    }
+
+    .syllabus-list {
+        display: none;
+        list-style-type: none;
+        padding-left: 0;
+        margin-top: 20px; /* More space */
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        padding: 10px;
+    }
+
+    .syllabus-list li {
+        padding: 5px 0;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .syllabus-list li:last-child {
+        border-bottom: none;
+    }
+    .syllabus-btn {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 12px 25px; /* Adjusted padding */
+        border-radius: 25px; /* Pill shape */
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition and subtle lift */
+        font-weight: bold; /* Bold text */
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow */
+    }
+
+    .syllabus-btn:hover {
+        background-color: #45a049;
+        transform: scale(1.05);
+    }
+
+    .syllabus-list {
+        display: none;
+        list-style-type: none;
+        padding-left: 0;
+        margin-top: 20px; /* More space */
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        padding: 10px;
+    }
+
+    .syllabus-list li {
+        padding: 5px 0;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .syllabus-list li:last-child {
+        border-bottom: none;
+    }
+    .custom-button {
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        padding: 10px 20px; /* Adjusted padding */
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 1em; /* Use relative units */
+        margin: 5px; /* Adjusted margin */
+        cursor: pointer;
+        border-radius: 20px; /* More rounded corners */
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow */
+        transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transition and subtle lift */
+        font-weight: bold; /* Bold text */
+    }
+    .custom-button:hover {
+        background-color: #45a049; /* Darker green on hover */
+        transform: translateY(-2px); /* Slight lift effect */
+    }
+        /* Header */
+        header {
+            background-color: #4B2666;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: white;
+            flex-wrap: wrap; /* Allow wrapping for smaller screens */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow */
+        }
+
+        header img {
+            height: 50px;
+            margin-right: 20px;
+        }
+
+        header .header-links {
+            display: flex;
+            gap: 15px;
+            font-size: 1em; /* Use relative units */
+            flex-wrap: wrap; /* Allow links to wrap */
+        }
+
+        header .header-links a {
+            color: white;
+            text-decoration: none;
+            position: relative;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        header .header-links a:hover {
+            background-color: #FF7F00;
+        }
+
+        /* Dropdown menu */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #ffffff; /* White background */
+            color: #333; /* Darker text */
+            min-width: 200px;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 10px 15px;
+            text-decoration: none;
+            color: #333; /* Darker text */
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #FF7F00;
+            color: white;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Main Button Style */
+        .main-button {
+            background-color: #FF7F00;
+            color: white;
+            padding: 12px 25px; /* Adjusted padding */
+            border-radius: 25px; /* Pill shape */
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            text-align: center;
+            transition: background-color 0.3s ease, transform 0.3s ease; /* Added transform for hover effect */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Subtle shadow */
+        }
+
+        .main-button:hover {
+            background-color: #FF5500;
+            transform: translateY(-2px); /* Slight lift effect */
+        }
+
+        /* Main Banner */
+        .banner {
+            text-align: center;
+            margin: 20px 0;
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .banner-images {
+            display: flex;
+            transition: transform 5s ease-in-out;
+        }
+
+        .banner img {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .banner p {
+            font-size: 24px;
+            color: #4B2666;
+            margin-top: 10px;
+        }
+
+        /* Categories Section */
+        .categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap; /* Allow wrapping */
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .category img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-bottom: 5px;
+        }
+
+        .category p {
+            text-align: center;
+            font-size: 16px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #4B2666;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column; /* Stack items vertically */
+                align-items: flex-start;
+            }
+
+            header .header-links {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+
+            .banner img {
+                max-height: 300px; /* Reduce banner height */
+            }
+
+            .categories {
+                gap: 10px; /* Reduce gap between categories */
+            }
+
+            .category img {
+                width: 60px;
+                height: 60px; /* Smaller icons */
+            }
+
+            .category p {
+                font-size: 14px; /* Smaller text */
+            }
+        }
+
+        @media (max-width: 480px) {
+            header img {
+                height: 40px; /* Smaller logo */
+            }
+
+            header .header-links a {
+                font-size: 14px; /* Smaller links */
+                padding: 8px 10px; /* Adjust padding */
+            }
+
+            .banner img {
+                max-height: 250px; /* Further reduce banner height */
+            }
+
+            footer {
+                font-size: 14px; /* Smaller footer text */
+            }
+        }
+        .slideshow-container {
+            position: relative;
+            max-width: 800px;
+            margin: auto;
+        }
+        .slides {
+            display: none;
+        }
+        .slides img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .prev, .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .prev {
+            left: 10px;
+        }
+        .next {
+            right: 10px;
+        }
+        .dots {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .dot {
+            cursor: pointer;
+            height: 10px;
+            width: 10px;
+            margin: 0 5px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .active {
+            background-color: #717171;
+        }
+         /* Dropdown menu */
+         .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: rgb(81, 81, 81);
+            color: #4B2666;
+            min-width: 200px;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 10px 15px;
+            text-decoration: none;
+            color: #4B2666;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #FF7F00;
+            color: white;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Style for active nav link to remove ash color */
+        .navbar-nav .nav-item .nav-link.active {
+            background-color: transparent !important; /* Remove any background color */
+            border: none !important; /* Remove any border */
+            color: white !important; /* Ensure text remains white */
+        }
+
+         /* Ensure all nav link text is white */
+        .navbar-nav .nav-item .nav-link {
+            color: white !important; /* Set text color to white */
+        }
+
+        /* Section Padding */
+        section {
+            padding: 60px 20px; /* More padding for sections */
+            text-align: center;
+        }
+
+        section h2 {
+            font-size: 2em; /* Consistent heading size */
+            color: #4B2666;
+            margin-bottom: 40px; /* More space below headings */
+        }
+
+        /* Table/List Styling (assuming content is in a table or list) */
+        .university-list,
+        .faculty-list {
+            margin-top: 30px; /* Space above the list/table */
+            text-align: left; /* Align text to the left */
+            max-width: 800px; /* Max width for content */
+            margin-left: auto;
+            margin-right: auto; /* Center the block */
+            background-color: #ffffff; /* White background */
+            padding: 20px; /* Inner padding */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        }
+
+        .university-list h3,
+        .faculty-list h4 {
+            color: #4B2666; /* Consistent heading color */
+            margin-top: 20px; /* Space above subheadings */
+            margin-bottom: 10px;
+        }
+
+        .university-list ul,
+        .faculty-list ul {
+            list-style: none; /* Remove default list styles */
+            padding: 0;
+        }
+
+        .university-list li,
+        .faculty-list li {
+            padding: 10px 0; /* Padding for list items */
+            border-bottom: 1px solid #eee; /* Light separator line */
+        }
+
+        .university-list li:last-child,
+        .faculty-list li:last-child {
+            border-bottom: none; /* No border for the last item */
+        }
+
+        .university-list a,
+        .faculty-list a {
+            color: #007bff; /* Link color */
+            text-decoration: none; /* Remove underline */
+            transition: color 0.3s ease; /* Smooth color transition */
+        }
+
+        .university-list a:hover,
+        .faculty-list a:hover {
+            color: #0056b3; /* Darker color on hover */
+            text-decoration: underline; /* Underline on hover */
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #4B2666;">
+      <div class="container-fluid">
+          <a class="navbar-brand" href="#"><h1>EDUCATIONPATHWAY</h1></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav ms-auto">
+                  <li class="nav-item">
+                      <a class="nav-link active" href="index.html">Home</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          AL Stream
+                      </a>
+                      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                          <li><a class="dropdown-item" href="Physicalscience.html">Physical Science</a></li>
+                          <li><a class="dropdown-item" href="BIOSCIENCE.html">Bio Science</a></li>
+                          <li><a class="dropdown-item" href="commerce.html">Commerce</a></li>
+                          <li><a class="dropdown-item" href="Arts.html">Arts</a></li>
+                          <li><a class="dropdown-item" href="egineering Tech.html">Engineering Technology</a></li>
+                          <li><a class="dropdown-item" href="Bio System Tech.html">Bio Systems Technology</a></li>
+                      </ul>
+                  </li>
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Higher Education Guide
+                      </a>
+                      <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                          <li><a class="dropdown-item" href="G.Uni.html">Sri Lankan Government Universities</a></li>
+                          <li><a class="dropdown-item" href="P.Uni.html">Approved Private Universities</a></li>
+                          <li><a class="dropdown-item" href="HND.html">Higher National Diploma Courses</a></li>
+                          <li><a class="dropdown-item" href="NVQ.html">NVQ Level Courses</a></li>
+                      </ul>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="Find Suitable Degree.html"><B>Find Degree</B></a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="About.html">About</a>
+                  </li>
+              </ul>
+          </div>
+      </div>
+  </nav>
+
+<br>
+<div class="container">
+ 
+     <h1><center><b>Sri Lankan Government Universities and Faculties</b></center></h1>
+     <center><img src="ccccccc.png" alt=""></center>
+     <div class="container"><p>Sri Lankan government universities are key institutions of higher education that provide affordable and quality learning opportunities 
+       to students across the country. Funded and regulated by the government, these universities offer a wide range of undergraduate and postgraduate programs in various fields such as science, engineering, medicine, arts, and social sciences.
+        Known for their rigorous academic standards, these institutions play a significant role in fostering intellectual growth, research, and innovation. They are also committed to promoting social equity by offering scholarships and other financial 
+        support to deserving students, ensuring that higher education is accessible to all.</p>
+        <br>
+     <center><b> Universities Importance Event  NOTICE BOARD </b></center>
+  <div class="slideshow-container">
+    <center> 
+    <div class="slideshow-container" >
+      <div class="slides">
+        <a href="https://fot.wyb.ac.lk/inauguration-ceremony-of-new-students-of-2022-2023-intake/" target="_blank"></a>
+          <img src="News-thumbnail.jpg"  alt="Slide 1"  style="width:  500px; height: 300px; ">
+      </div>
+      <div class="slides">
+        <a href="https://www.sjp.ac.lk/news/50th-convocation-special-notice-to-the-graduands/" target="_blank"></a>
+          <img src="50th-convocation-notice.jpg" alt="Slide 3" style="width:  500px; height: 300px;">
+      </div>
+  </div></center>
+   
+  </div>
+  <div class="dots">
+    <span class="dot" onclick="currentSlide(1)"></span>
+    <span class="dot" onclick="currentSlide(2)"></span>
+    <span class="dot" onclick="currentSlide(3)"></span>
+</div>
+    
+
+   <br>
+ <h2><img src="logo-color-300x344.png" alt="Small Image" width="40" height="40">University of Colombo</h2>
+      <p><b> Go to the university Official Site >>> </b><a href="https://cmb.ac.lk/" style="text-decoration: none;">
+       <button class="custom-button">CLICK</button> </a> </p>
+       <b> Faculties </b>
+ <ol>
+   <li>Medicine</li>
+   <li>Science</li>
+   <li>Technology</li>
+   <li>Nursing</li>
+   <li>Management & Finance</li>
+   <li>Law</li>
+   <li>Indigenous Medicine</li>
+   <li>Graduate Studies</li>
+   <li>Education</li>
+   <li>Arts</li>
+ </ol>
+
+   
+
+ 
+
+ <h2><img src="UOP logo.png" alt="Small Image" width="40" height="40">University of Peradeniya</h2>
+ <p><b> Go to the university Official Site >>> </b><a href="https://www.pdn.ac.lk/" style="text-decoration: none;">
+   <button class="custom-button">CLICK</button> </a> </p>
+   <b> Faculties </b>
+ <ol>
+   <li>Agriculture</li>
+   <li>Arts</li>
+   <li>Dental Sciences</li>
+   <li>Engineering</li>
+   <li>Management</li>
+   <li>Medicine</li>
+   <li>Science</li>
+   <li>Veterinary Medicine & Ani</li>
+ </ol>
+
+ <h2><img src="usjp-logo-300x300.png" alt="Small Image" width="40" height="40">University of Sri Jayewardenepura</h2>
+ <p><b> Go to the university Official Site >>> </b><a href="https://www.sjp.ac.lk/" style="text-decoration: none;">
+   <button class="custom-button">CLICK</button> </a> </p>
+   <b> Faculties </b>
+ <ol>
+   <li>Humanities and Social Sciences</li>
+   <li>Applied Sciences</li>
+   <li>Management Studies and Commerce</li>
+   <li>Medical Sciences</li>
+   <li>Graduate Studies</li>
+   <li>Technology</li>
+   <li>Engineering</li>
+   <li>Allied Health Sciences</li>
+
+ </ol>
+
+ <h2><img src="university-of-kelaniya-logo.png" alt="Small Image" width="40" height="40">University of Kelaniya</h2>
+ <p><b> Go to the university Official Site >>> </b><a href="https://www.kln.ac.lk/" style="text-decoration: none;">
+   <button class="custom-button">CLICK</button> </a> </p>
+   <b> Faculties </b>
+ <ol>
+   <li>Commerce and Management Studies</li>
+   <li>Humanities</li>
+   <li>Medicine</li>
+   <li>Science</li>
+   <li>Social Sciences</li>
+   <li>Computing and Technology</li>
+   <li>Graduate Studies</li>
+
+ </ol>
+
+ <h2><img src="logo3.png" alt="Small Image" width="40" height="40">University of Moratuwa</h2>
+ <p><b> Go to the university Official Site >>> </b><a href="https://uom.lk/academic" style="text-decoration: none;">
+   <button class="custom-button">CLICK</button> </a> </p>
+   <b> Faculties </b>
+ <ol>
+   <li>Architecture</li>
+   <li>Medicine</li>
+   <li>Engineering</li>
+   <li>Information Technology</li>
+   <li>Graduate Studies</li>
+   <li>Business</li>
+ </ol>
+
+ <h2><img src="home_logo.png" alt="Small Image" width="70" height="50">University of Ruhuna</h2>
+ <p><b> Go to the university Official Site >>> </b><a href="https://ruh.ac.lk/index.php/en/" style="text-decoration: none;">
+   <button class="custom-button">CLICK</button> </a> </p>
+   <b> Faculties </b>
+ <ol>
+   <li>Agriculture</li>
+   <li>Allied Health Sciences</li>
+   <li>Engineering</li>
+   <li>Fisheries and Marine Sciences & Technology</li>
+   <li>Humanities and Social Sciences</li>
+   <li>Management and Finance</li>
+   <li>Medicine</li>
+   <li>Science</li>
+   <li>Technology</li>
+   <li>Graduate Studies</li>
+
+ </ol>
+
+ <h2><img src="EUSL_logo2.png" alt="Small Image" width="40" height="40">Eastern University, Sri Lanka</h2>
+ <p><b> Go to the university Official Site >>> </b><a href="https://www.esn.ac.lk/" style="text-decoration: none;">
+   <button class="custom-button">CLICK</button> </a> </p>
+   <b> Faculties </b>
+ <ol>
+   <li>Agriculture</li>
+   <li>Commerce & Management</li>
+   <li>Arts& culture </li>
+   <li>Health care  Sciences</li>
+   <li>Science</li>
+   <li>Technology</li>
+   <li>Graduate Studies</li>
+ </ol>
+
+ <h2><img src="jaffnA.png" alt="Small Image" width="40" height="40">University of Jaffna</h2>
+ <p><b> Go to the university Official Site >>> </b><a href="https://www.jfn.ac.lk/" style="text-decoration: none;">
+   <button class="custom-button">CLICK</button> </a> </p>
+   <b> Faculties </b>
+ <ol>
+   <li>Agriculture</li>
+   <li>Management Studies & Commerce</li>
+   <li>Arts </li>
+   <li>Allied Health Sciences</li>
+   <li>Science</li>
+   <li>Technology</li>
+   <li>Medicine</li>
+   <li>Engineering</li>
+   <li>Hindu Studies</li>
+   <li>Performing and Visual Arts</li>
+   <li>Graduate Studies</li>
+ </ol>
+
+ <h2><img src="Wayamba.png" alt="Small Image" width="30" height="40">Wayamba University of Sri Lanka</h2>
+ <p><b> Go to the university Official Site >>> </b><a href="https://www.wyb.ac.lk/" style="text-decoration: none;">
+   <button class="custom-button">CLICK</button> </a> </p>
+   <b> Faculties </b>
+ <ol>
+   <li>Agriculture and Plantation Management</li>
+   <li>Business Studies and Finance</li>
+   <li>Applied Sciences</li>
+   <li>Medicine</li>
+   <li>Technology</li>
+   <li>Livestock,Fisheries & Nutrition</li>
+ </ol>
+
+ <h2><img src="Logo-SUSL.png" alt="Small Image" width="40" height="40">Sabaragamuwa University of Sri Lanka</h2>
+ <p><b> Go to the university Official Site >>> </b><a href="https://www.sab.ac.lk/" style="text-decoration: none;">
+   <button class="custom-button">CLICK</button> </a> </p>
+   <b> Faculties </b>
+ <ol>
+   <li>Agricultural Sciences</li>
+   <li>Applied Sciences</li>
+   <li>Management Studies</li>
+   <li>Social Sciences and Languages</li>
+   <li>Geomatics</li>
+   <li>Computing</li>
+   <li>Medicine</li>
+   <li>Technology</li>
+   <li>Graduate Studies</li>
+ </ol>
+
+ <h2><img src="uva-wellassa-university.png" alt="Small Image" width="40" height="40">Uva Wellassa University</h2>
+ <p><b> Go to the university Official Site >>> </b><a href="https://www.uwu.ac.lk/" style="text-decoration: none;">
+   <button class="custom-button">CLICK</button> </a> </p>
+   <b> Faculties </b>
+ <ol>
+   <li>Animal Science and Export Agriculture</li>
+   <li>Applied Science</li>
+   <li>Technological Studies </li>
+   <li>Management</li>
+   <li>Medicine</li>
+ </ol>
+
+ <h2><img src="South_Eastern_University_of_Sri_Lanka_logo.png" alt="Small Image" width="40" height="40">South Eastern University of Sri Lanka</h2>
+ <p><b> Go to the university Official Site >>> </b><a href="https://www.seu.ac.lk/" style="text-decoration: none;">
+   <button class="custom-button">CLICK</button> </a> </p>
+   <b> Faculties </b>
+ <ol>
+   <li>Arts and Culture</li>
+   <li>Management and Commerce</li>
+   <li>Islamic Studies & Arabic Language</li>
+   <li>Applied Sciences</li>
+   <li>Engineering</li>
+   <li>Technology</li>
+ </ol>
+
+ <h2><img src="RUSL LOGO.png" alt="Small Image" width="30" height="40">Rajarata University of Sri Lanka</h2>
+ <p><b> Go to the university Official Site >>> </b><a href="https://www.rjt.ac.lk/" style="text-decoration: none;">
+   <button class="custom-button">CLICK</button> </a> </p>
+   <b> Faculties </b>
+ <ol>
+   <li>Agriculture</li>
+   <li>Applied Sciences</li>
+   <li>Management Studies</li>
+   <li>Medicine and Allied Sciences</li>
+   <li>Social Sciences and Humanities</li>
+   <li>Technology</li>
+ </ol>
+
+ <h2><img src="Logo-OUSL-tnsp (1).png" alt="Small Image" width="30" height="40">Open University of Sri Lanka</h2>
+ <p><b> Go to the university Official Site >>> </b><a href="https://ou.ac.lk/" style="text-decoration: none;">
+   <button class="custom-button">CLICK</button> </a> </p>
+   <b> Faculties </b>
+ <ol>
+   <li>Engineering Technology</li>
+   <li>Natural Sciences</li>
+   <li>Education</li>
+   <li>Humanities and Social Sciences</li>
+   <li>Health Sciences</li>
+   <li>Management Studies</li>
+ </ol>
+
+ <h2><img src="logo-3-300x296-1.png" alt="Small Image" width="40" height="40">University of the Visual and Performing Arts</h2>
+ <p><b> Go to the university Official Site >>> </b><a href="https://vpa.ac.lk/" style="text-decoration: none;">
+   <button class="custom-button">CLICK</button> </a> </p>
+   <b> Faculties </b>
+ <ol>
+   <li>Dance and Drama</li>
+   <li>Music</li>
+   <li>Visual Arts</li>
+   <li>Graduate Studies</li>
+ </ol>
+
+ <h2><img src="University-of-Vavuniya-Logo-1024x1024.png" alt="Small Image" width="40" height="40">University of Vavuniya</h2>
+ <p><b> Go to the university Official Site >>> </b><a href="https://vau.ac.lk/" style="text-decoration: none;">
+   <button class="custom-button">CLICK</button> </a> </p>
+   <b> Faculties </b>
+ <ol>
+   <li>Business Studies</li>
+   <li>Information and Communication Technology</li>
+   <li>Technological Studies</li>
+ </ol>
+
+<br>
+ <h1>Other  Government Universities and Faculties</h1>
+ 
+<br>
+<h2><img src="Crest-KDU-1.png" alt="Small Image" width="40" height="40">The General Sir John Kotelawala Defence University (KDU)</h2>
+    
+  <p><b> Go to the university Official Site >>> </b><a href="https://kdu.ac.lk/" style="text-decoration: none;">
+   <button class="custom-button">CLICK</button> </a> </p>
+   <b> Faculties </b>
+<ol>
+<li>Defence and Strategic Studies</li>
+<li>Medicine</li>
+<li>Technology</li>
+<li>Engineerig</li>
+<li>Management,Social Sciences and Humanities</li>
+<li>Law</li>
+<li>Allied Health Science</li>
+<li>Graduate Studies</li>
+<li>Computing</li>
+<li>Built Environment and Spatial Scieces </li>
+<li>Criminal Justice</li>
+</ol>
+
+<h2><img src="Centre for Postgraduate and External Examinations.png" alt="Small Image" width="40" height="40">Buddhist and Pali University of Sri Lanka</h2>
+   
+  <p><b> Go to the university Official Site >>> </b><a href="http://www.bpu.ac.lk/" style="text-decoration: none;">
+   <button class="custom-button">CLICK</button> </a> </p>
+   <b> Faculties </b>
+<ol>
+<li>Buddhist Studies</li>
+<li>Language Studies</li>
+<li>Graduate Studies</li>
+</ol>
+
+<h2><img src="0000.png" alt="Small Image" width="40" height="40">Bhiksu University of Sri Lanka</h2>
+    
+  <p><b> Go to the university Official Site >>> </b><a href="https://busl.ac.lk//" style="text-decoration: none;">
+   <button class="custom-button">CLICK</button> </a> </p>
+   <b> Faculties </b>
+<ol>
+<li>Buddhist Studies</li>
+<li>Language Studies</li>
+</ol>
+<h2><img src="logo_transparent.png" alt="Small Image" width="40" height="40">University of Vocational Technology</h2>
+    
+  <p><b> Go to the university Official Site >>> </b><a href="http://univotec.ac.lk/" style="text-decoration: none;">
+   <button class="custom-button">CLICK</button> </a> </p>
+   <b> Faculties </b>
+<ol>
+<li>Education</li>
+<li>Engineering Technology</li>
+<li>Information Technology</li>
+<li>Industrial Technology</li>
+</ol>
+
+<h2><img src="images.jpeg" alt="Small Image" width="40" height="40">Ocean University of Sri Lanka</h2>
+    
+  <p><b> Go to the university Official Site >>> </b><a href="https://ocu.ac.lk/" style="text-decoration: none;">
+   <button class="custom-button">CLICK</button> </a> </p>
+   <b> Faculties </b>
+<ol>
+<li>Engineering & Management</li>
+<li>Fisheries and Ocean Science</li>
+
+</ol>
+<h2><img src="367f75d367c0b264bc08e189fcd14e07_M.jpg" alt="Small Image" width="40" height="40">National Institute of Education (NIE)</h2>
+    
+  <p><b> Go to the university Official Site >>> </b><a href="https://www.nie.ac.lk/" style="text-decoration: none;">
+   <button class="custom-button">CLICK</button> </a> </p>
+   <b> Faculties </b>
+<ol>
+<li>Languages,Humanities and Social Sciences</li>
+<li>Science and Technology</li>
+<li>Research,Planning and Alternative Education</li>
+<li>Educational Leadership Development and Management</li>
+</ol>
+</div>
+   
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 Education pathway Site. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript for Image Slideshow -->
+    <script>
+        let currentIndex = 0;
+        const bannerImages = document.querySelector('.banner-images');
+
+        function slideBanner() {
+            currentIndex = (currentIndex + 1) % 2;
+            bannerImages.style.transform = `translateX(-${currentIndex * 100}%)`;
+        }
+
+        setInterval(slideBanner, 5000);
+    </script>
+     <script>
+        function toggleSyllabus() {
+            var syllabusList = document.getElementById("syllabusList");
+            if (syllabusList.style.display === "none" || syllabusList.style.display === "") {
+                syllabusList.style.display = "block";
+            } else {
+                syllabusList.style.display = "none";
+            }
+        }
+    </script>
+    <script>
+      let slideIndex = 0;
+  
+      function showSlides() {
+          const slides = document.querySelectorAll(".slides");
+          const dots = document.querySelectorAll(".dot");
+  
+          // Hide all slides and remove active dot class
+          slides.forEach(slide => slide.style.display = "none");
+          dots.forEach(dot => dot.className = dot.className.replace(" active", ""));
+  
+          // Increment slideIndex and reset if it exceeds slide count
+          slideIndex++;
+          if (slideIndex > slides.length) slideIndex = 1;
+  
+          // Show the current slide and mark the corresponding dot as active
+          slides[slideIndex - 1].style.display = "block";
+          dots[slideIndex - 1].className += " active";
+      }
+  
+      // Initial display of the first slide
+      showSlides();
+  
+      // Set the interval to automatically change slides every 2 seconds
+      setInterval(showSlides, 2000);
+  </script>
+  
+    
+</body>
+</html>

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - EducationPathway</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            min-height: 100vh;
+            background-image: url('20891047 copy.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .register-container {
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .register-title {
+            color: #4B2666;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-control, .form-select {
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+        }
+
+        .btn-register {
+            width: 100%;
+            padding: 12px;
+            background: #4B2666;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-register:hover {
+            background: #6b6bff;
+            transform: translateY(-2px);
+        }
+
+        .back-link,
+        .login-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #4B2666;
+            text-decoration: none;
+        }
+
+        .back-link:hover,
+        .login-link:hover {
+            color: #6b6bff;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 0px; /* Reduced margin to fit with form-control's own margin-bottom */
+        }
+
+        .form-group {
+            flex: 1;
+        }
+
+        .error-message {
+            color: #dc3545;
+            text-align: center;
+            margin-top: 10px;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <h2 class="register-title">Create Account</h2>
+        <form id="registerForm">
+            <div class="form-row">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="name" placeholder="Full Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" class="form-control" id="email" placeholder="Email Address" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <input type="tel" class="form-control" id="contact" placeholder="Contact Number" required>
+                </div>
+                <div class="form-group">
+                    <select class="form-select" id="stream" required>
+                        <option value="">Subject Stream</option>
+                        <option value="science">Science</option>
+                        <option value="commerce">Commerce</option>
+                        <option value="arts">Arts</option>
+                        <option value="technology">Technology</option>
+                        <option value="maths">Maths</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <select class="form-select" id="province" required onchange="updateDistricts()">
+                        <option value="">Province</option>
+                        <option value="western">Western</option>
+                        <option value="central">Central</option>
+                        <option value="southern">Southern</option>
+                        <option value="northern">Northern</option>
+                        <option value="eastern">Eastern</option>
+                        <option value="northWestern">North Western</option>
+                        <option value="northCentral">North Central</option>
+                        <option value="uva">Uva</option>
+                        <option value="sabaragamuwa">Sabaragamuwa</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select class="form-select" id="district" required>
+                        <option value="">Select District</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <input type="number" class="form-control" id="alYear" placeholder="A/L Year" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="school" placeholder="School" required>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-register">Register</button>
+            <div id="errorMessage" class="error-message"></div>
+        </form>
+        <a href="welcome.html" class="back-link">Return to Welcome</a>
+        <a href="login.html" class="login-link">Already have an account? Sign in here</a>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+
+    <script>
+        // District mapping for each province
+        const provinceDistricts = {
+            western: ['Colombo', 'Gampaha', 'Kalutara'],
+            central: ['Kandy', 'Matale', 'Nuwara Eliya'],
+            southern: ['Galle', 'Matara', 'Hambantota'],
+            northern: ['Jaffna', 'Kilinochchi', 'Mannar', 'Mullaitivu', 'Vavuniya'],
+            eastern: ['Batticaloa', 'Ampara', 'Trincomalee'],
+            northWestern: ['Kurunegala', 'Puttalam'],
+            northCentral: ['Anuradhapura', 'Polonnaruwa'],
+            uva: ['Badulla', 'Monaragala'],
+            sabaragamuwa: ['Kegalle', 'Ratnapura']
+        };
+
+        function updateDistricts() {
+            const provinceSelect = document.getElementById('province');
+            const districtSelect = document.getElementById('district');
+            const selectedProvince = provinceSelect.value;
+
+            // Clear existing options
+            districtSelect.innerHTML = '<option value="">Select District</option>';
+
+            if (selectedProvince) {
+                // Add districts for selected province
+                const districts = provinceDistricts[selectedProvince];
+                districts.forEach(district => {
+                    const option = document.createElement('option');
+                    option.value = district.toLowerCase();
+                    option.textContent = district;
+                    districtSelect.appendChild(option);
+                });
+            }
+        }
+
+        // Clear any existing session when reaching register page
+        sessionStorage.removeItem('user');
+
+        // Check if user is already logged in
+        if (sessionStorage.getItem('user')) {
+            window.location.replace('index.html');
+        }
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyB3sd3HGu86C-gfclco88x8bSaeQDKY9as",
+            authDomain: "educationpathway2025.firebaseapp.com",
+            databaseURL: "https://educationpathway2025-default-rtdb.firebaseio.com",
+            projectId: "educationpathway2025",
+            storageBucket: "educationpathway2025.firebasestorage.app",
+            messagingSenderId: "290312110364",
+            appId: "1:290312110364:web:f5a6fc524f9a4da5547ad9",
+            measurementId: "G-KLX21M5HFW"
+        };
+
+        // Initialize Firebase
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const database = firebase.database();
+
+        // Handle form submission
+        document.getElementById('registerForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const errorMessage = document.getElementById('errorMessage');
+            errorMessage.style.display = 'none'; // Hide previous error
+
+            try {
+                // Collect all form data
+                const formData = {
+                    email: document.getElementById('email').value.trim(),
+                    name: document.getElementById('name').value.trim(),
+                    contact: document.getElementById('contact').value.trim(),
+                    stream: document.getElementById('stream').value.trim(),
+                    province: document.getElementById('province').value.trim(),
+                    district: document.getElementById('district').value.trim(),
+                    alYear: document.getElementById('alYear').value.trim(),
+                    school: document.getElementById('school').value.trim()
+                };
+
+                // Validate all fields
+                const requiredFields = ['email', 'name', 'contact', 'stream', 'province', 'district', 'alYear', 'school'];
+                const missingFields = requiredFields.filter(field => !formData[field]);
+                
+                if (missingFields.length > 0) {
+                    throw new Error('Please fill in all required fields: ' + missingFields.join(', '));
+                }
+
+                // Check if email exists
+                const emailSnapshot = await database.ref('users').orderByChild('email').equalTo(formData.email).once('value');
+                
+                if (emailSnapshot.exists()) {
+                    throw new Error('Email already registered. Please sign in.');
+                }
+
+                // Create new user with all data
+                const newUserRef = database.ref('users').push();
+                const userData = {
+                    ...formData,
+                    createdAt: new Date().toISOString()
+                };
+
+                // Save the data
+                await newUserRef.set(userData);
+                
+                // Verify the data was saved
+                const savedSnapshot = await database.ref('users').child(newUserRef.key).once('value');
+                const savedData = savedSnapshot.val();
+
+                if (!savedData || Object.keys(savedData).length === 0) {
+                    throw new Error('Registration failed. Please try again.');
+                }
+
+                // Store user data in session and redirect
+                sessionStorage.setItem('user', JSON.stringify(savedData));
+                window.location.replace('index.html');
+
+            } catch (error) {
+                errorMessage.textContent = error.message;
+                errorMessage.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html> 

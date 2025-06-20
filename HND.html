@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <title>HND</title>
+    <style>
+         body {
+     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    position: relative;
+    z-index: 1;
+
+    }
+     
+    
+        /* General reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        .syllabus-btn {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .syllabus-btn:hover {
+        background-color: #45a049;
+        transform: scale(1.05);
+    }
+
+    .syllabus-list {
+        display: none;
+        list-style-type: none;
+        padding-left: 0;
+        margin-top: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        padding: 10px;
+    }
+
+    .syllabus-list li {
+        padding: 5px 0;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .syllabus-list li:last-child {
+        border-bottom: none;
+    }
+    .syllabus-btn {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .syllabus-btn:hover {
+        background-color: #45a049;
+        transform: scale(1.05);
+    }
+
+    .syllabus-list {
+        display: none;
+        list-style-type: none;
+        padding-left: 0;
+        margin-top: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        padding: 10px;
+    }
+
+    .syllabus-list li {
+        padding: 5px 0;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .syllabus-list li:last-child {
+        border-bottom: none;
+    }
+    .custom-button {
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        padding: 7px 16px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 10px;
+        margin: 2px 1px;
+        cursor: pointer;
+        border-radius: 6px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+        /* Header */
+        header {
+            background-color: #4B2666;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: white;
+            flex-wrap: wrap; /* Allow wrapping for smaller screens */
+        }
+
+        header img {
+            height: 50px;
+            margin-right: 20px;
+        }
+
+        header .header-links {
+            display: flex;
+            gap: 15px;
+            font-size: 18px;
+            flex-wrap: wrap; /* Allow links to wrap */
+        }
+
+        header .header-links a {
+            color: white;
+            text-decoration: none;
+            position: relative;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        header .header-links a:hover {
+            background-color: #FF7F00;
+        }
+
+        /* Dropdown menu */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: rgb(81, 81, 81);
+            color: #4B2666;
+            min-width: 200px;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 10px 15px;
+            text-decoration: none;
+            color: #4B2666;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #FF7F00;
+            color: white;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Main Button Style */
+        .main-button {
+            background-color: #FF7F00;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+
+        .main-button:hover {
+            background-color: #FF5500;
+        }
+
+        /* Main Banner */
+        .banner {
+            text-align: center;
+            margin: 20px 0;
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .banner-images {
+            display: flex;
+            transition: transform 5s ease-in-out;
+        }
+
+        .banner img {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .banner p {
+            font-size: 24px;
+            color: #4B2666;
+            margin-top: 10px;
+        }
+
+        /* Categories Section */
+        .categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap; /* Allow wrapping */
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .category img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-bottom: 5px;
+        }
+
+        .category p {
+            text-align: center;
+            font-size: 16px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #4B2666;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column; /* Stack items vertically */
+                align-items: flex-start;
+            }
+
+            header .header-links {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+
+            .banner img {
+                max-height: 300px; /* Reduce banner height */
+            }
+
+            .categories {
+                gap: 10px; /* Reduce gap between categories */
+            }
+
+            .category img {
+                width: 60px;
+                height: 60px; /* Smaller icons */
+            }
+
+            .category p {
+                font-size: 14px; /* Smaller text */
+            }
+        }
+
+        @media (max-width: 480px) {
+            header img {
+                height: 40px; /* Smaller logo */
+            }
+
+            header .header-links a {
+                font-size: 14px; /* Smaller links */
+                padding: 8px 10px; /* Adjust padding */
+            }
+
+            .banner img {
+                max-height: 250px; /* Further reduce banner height */
+            }
+
+            footer {
+                font-size: 14px; /* Smaller footer text */
+            }
+        }
+         /* Dropdown menu */
+         .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: rgb(81, 81, 81);
+            color: #4B2666;
+            min-width: 200px;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 10px 15px;
+            text-decoration: none;
+            color: #4B2666;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #FF7F00;
+            color: white;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #4B2666;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><h1>EDUCATIONPATHWAY</h1></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            AL Stream
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="Physicalscience.html">Physical Science</a></li>
+                            <li><a class="dropdown-item" href="BIOSCIENCE.html">Bio Science</a></li>
+                            <li><a class="dropdown-item" href="commerce.html">Commerce</a></li>
+                            <li><a class="dropdown-item" href="Arts.html">Arts</a></li>
+                            <li><a class="dropdown-item" href="egineering Tech.html">Engineering Technology</a></li>
+                            <li><a class="dropdown-item" href="Bio System Tech.html">Bio Systems Technology</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Higher Education Guide
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                            <li><a class="dropdown-item" href="G.Uni.html">Sri Lankan Government Universities</a></li>
+                            <li><a class="dropdown-item" href="P.Uni.html">Approved Private Universities</a></li>
+                            <li><a class="dropdown-item" href="HND.html">Higher National Diploma Courses</a></li>
+                            <li><a class="dropdown-item" href="NVQ.html">NVQ Level Courses</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Find Suitable Degree.html"><B>Find Degree</B></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="About.html">About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+<br>
+<div class="container">
+    
+    <h1><center><b>HND Courses in Sri Lanka</b></center></h1>
+
+    <h2>Government Institutions</h2>
+    <ul>
+        <li>
+            <strong>Sri Lanka Institute of Advanced Technological Education (SLIATE)</strong><br>
+            <p> Go to the institude Official Site >>><a href="http://www.sliate.ac.lk/" style="text-decoration: none;">
+              <button class="custom-button">CLICK</button> </a> </p>
+            <em>Courses Offered:</em> Engineering, IT, Business Management, Accountancy, Agriculture, etc.<br>
+            <em>Campuses:</em> Colombo, Kandy, Jaffna, Galle, etc. <br><br><br><br>
+            
+        </li>
+
+
+        <li>
+            <strong>University of Vocational Technology (UNIVOTEC)</strong><br>
+            <p> Go to the institude Official Site >>><a href="http://univotec.ac.lk/" style="text-decoration: none;">
+              <button class="custom-button">CLICK</button> </a> </p>
+            <em>Courses Offered:</em> Technical and vocational fields such as engineering, IT, and technology management.<br>
+            <em>Location:</em> Ratmalana<br><br><br><br>
+            
+        </li>
+
+
+        <li>
+            <strong>Open University of Sri Lanka (OUSL)</strong><br>
+            <p> Go to the institude Official Site >>><a href="https://ou.ac.lk/" style="text-decoration: none;">
+              <button class="custom-button">CLICK</button> </a> </p>
+            <em>Courses Offered:</em> Various HND programs in fields like engineering, management, and IT.<br>
+            <em>Location:</em> Nawala (Main Campus), with regional centers across the country.<br><br><br><br>
+        </li>
+        <li>
+            <strong>Sri Lankan State  Universities </strong><br>
+            <p> Go to the Government university page >>><a href="GUniversity.html" style="text-decoration: none;">
+              <button class="custom-button">CLICK</button> </a> </p><br><br>
+           
+        </li>
+    </ul>
+
+    <h2>Private Institutions</h2>
+    <ul>
+        <li>
+            <strong>British College of Applied Studies (BCAS)</strong><br>
+            <p> Go to the institude Official Site >>><a href="https://bcas.lk/" style="text-decoration: none;">
+              <button class="custom-button">CLICK</button> </a> </p>
+            <em>Courses Offered:</em> HNDs in Business, Computing, Quantity Surveying, and Civil Engineering.<br>
+            <em>Location:</em> Colombo, Kandy, and other branches.<br><br>
+        </li>
+        <li>
+            <strong>Aquinas College of Higher Studies</strong><br>
+            <p> Go to the institude Official Site >>><a href="https://www.aquinas.lk/" style="text-decoration: none;">
+              <button class="custom-button">CLICK</button> </a> </p>
+            <em>Courses Offered:</em> HNDs in Business Management, IT, and Engineering.<br>
+            <em>Location:</em> Colombo<br><br>
+        </li>
+        <li>
+            <strong>ICBT Campus</strong><br>
+            <p> Go to the institude Official Site >>><a href="https://icbt.lk/" style="text-decoration: none;">
+              <button class="custom-button">CLICK</button> </a> </p>
+            <em>Courses Offered:</em> HNDs in Business, IT, Engineering, and Health Sciences.<br>
+            <em>Location:</em> Colombo, Kandy, Matara, Galle, and other branches.<br><br>
+        </li>
+        <li>
+            <strong>Sri Lanka Institute of Information Technology (SLIIT)</strong><br>
+            p> Go to the institude Official Site >>><a href="https://www.sliit.lk/" style="text-decoration: none;">
+              <button class="custom-button">CLICK</button> </a> </p>
+            <em>Courses Offered:</em> HNDs in IT, Business Management, Engineering, and more.<br>
+            <em>Location:</em> Malabe (Main Campus), with other regional campuses.<br><br>
+        </li>
+        <li>
+          <strong>Approved Private Universities </strong><br>
+          <p> Go to the private university page >>><a href="PUniversity.html" style="text-decoration: none;">
+            <button class="custom-button">CLICK</button> </a> </p><br><br>
+         
+      </li>
+       
+    </ul>
+
+    <h2>Key Points</h2>
+    <ul>
+        <li><strong>Duration:</strong> HND courses typically last 2 to 3 years.</li>
+        <li><strong>Progression:</strong> HND qualifications can often be used to gain entry into the third year of a degree program.</li>
+        <li><strong>Recognition:</strong> HNDs are widely recognized both locally and internationally, particularly in Commonwealth countries.</li>
+    </ul>
+  </div>
+
+   
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 Education pathway Site. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript for Image Slideshow -->
+    <script>
+        let currentIndex = 0;
+        const bannerImages = document.querySelector('.banner-images');
+
+        function slideBanner() {
+            currentIndex = (currentIndex + 1) % 2;
+            bannerImages.style.transform = `translateX(-${currentIndex * 100}%)`;
+        }
+
+        setInterval(slideBanner, 5000);
+    </script>
+     <script>
+        function toggleSyllabus() {
+            var syllabusList = document.getElementById("syllabusList");
+            if (syllabusList.style.display === "none" || syllabusList.style.display === "") {
+                syllabusList.style.display = "block";
+            } else {
+                syllabusList.style.display = "none";
+            }
+        }
+    </script>
+    
+</body>
+</html>
