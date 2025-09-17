@@ -20,7 +20,7 @@ document.getElementById('degree-form').addEventListener('submit', function(event
         { 
             name: "MEDICINE", 
             university: "University of Colombo", 
-            districtRequirements: { 'Colombo': 1.2, 'Gampaha': 2.4412, 'Kalutara': 2.4446, 'Matale': 2.4981, 'Kandy': 2.5501, 'Nuwara Eliya': "NQC", 'Galle': 2.4478, 'Matara': 2.4552, 'Hambantota': 2.4711, 'Jaffna': 2.4504, 'Kilinochchi': "NQC", 'Mannar': "NQC", 'Mullaitivu': "NQC", 'Vavuniya': 2.5134, 'Trincomalee': 2.4637, 'Batticaloa':2.4902, 'Ampara':2.4374, 'Puttalam': 2.4946, 'Kurunegala': 2.4450, 'Anuradhapura': 2.5446, 'Polonnaruwa': 2.4695, 'Badulla': 2.5455, 'Monaragala': "NQC", 'Kegalle': 2.4552, 'Ratnapura': 2.4542}, 
+            districtRequirements: { 'Colombo': 1.2, 'Gampaha': 1.1, 'Kalutara': 2.4446, 'Matale': 2.4981, 'Kandy': 2.5501, 'Nuwara Eliya': "NQC", 'Galle': 2.4478, 'Matara': 2.4552, 'Hambantota': 2.4711, 'Jaffna': 2.4504, 'Kilinochchi': "NQC", 'Mannar': "NQC", 'Mullaitivu': "NQC", 'Vavuniya': 2.5134, 'Trincomalee': 2.4637, 'Batticaloa':2.4902, 'Ampara':2.4374, 'Puttalam': 2.4946, 'Kurunegala': 2.4450, 'Anuradhapura': 2.5446, 'Polonnaruwa': 2.4695, 'Badulla': 2.5455, 'Monaragala': "NQC", 'Kegalle': 2.4552, 'Ratnapura': 2.4542}, 
             requiredSubjects: ["Biology", "Chemistry", "Physics"] 
         },
         { 
